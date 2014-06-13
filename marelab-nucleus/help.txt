@@ -1,0 +1,27 @@
+ARM -> LINUX mount  mount -t nfs -o nolock 192.168.178.48:/home/ths/arm/workspace-marelab-solar /nfs
+
+scp test  pi@192.168.178.27:/home/pi
+
+
+---LUA
+sudo apt-get install lua5.2
+sudo apt-get install lua5.2-dev
+
+
+Rasphberry pi
+sudo apt-get install build-essential git
+sudo apt-get install ia32-libs
+sudo apt-get install libc6:i386 libgcc1:i386 gcc-4.6-base:i386 libstdc++5:i386 libstdc++6:i386 lib32z1 lib32ncurses5 lib32bz2-1.0 lib32asound2
+sudo apt-get install sqlite3-dev
+sudo apt-get install liblua5.2-dev
+
+DEBUG REMOTE
+sudo gdbserver 192.168.178.21:12345 marelab-nucleus
+
+sudo apt-get install nfs-kernel-server nfs-common
+
+NFS RESTART
+sudo /etc/init.d/nfs-kernel-server restart  
+sudo mount 192.168.178.27:/home/pi/nucleus /mnt/pi-nfs
+sudo mount 192.168.178.27:/home/pi/nucleus /mnt/pi-nfs
+sudo nano /etc/exports

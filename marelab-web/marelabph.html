@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<!--  Marelab CSS      -->
+<link rel="stylesheet" href="css/marelab.css">
+<link href="favicon.ico" rel="shortcut icon"
+	type="image/vnd.microsoft.icon">
+<!--  
+<link href="script/flot/examples/examples.css" rel="stylesheet" type="text/css" >
+-->
+
+<style type="text/css">
+.flot-text {
+	color: #578299;
+}
+</style>
+
+<!-- Language includes -->
+<script language="javascript" type="text/javascript"
+	src="script/flot/jquery.js"></script>
+<script language="javascript" type="text/javascript"
+	src="script/flot/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript"
+	src="script/flot/jquery.flot.time.js"></script>
+<script language="javascript" type="text/javascript"
+	src="script/flot/jquery.flot.navigate.js"></script>
+
+
+<script type="text/javascript">
+
+  // VALUES TO CONTROL PH CHAR
+  var STARTDATE = 1; 		 // Default is 24 hours from now
+  var ENDDATE   = 10000000;  // now
+  var DEBUG 	= 0;		 // if 1 prints DEBUG MSG
+  var DIAGRAM_TITLE = "PH Probe";
+  var JSON_PH_URL   = "cgi/marelab-phcgi";	
+  
+	$(document).ready(function() {
+    getMarelabPH();
+  });
+	 
+  
+  function jsonPH(startph,endeph) {
+	    var COMMAND = 'COMMAND=PH&START='+startph+'&ENDE='+endeph;
+		var dataret;
+		$.ajax({
+			type : "POST",
+			//url: 'cgi.php',
+			url : JSON_PH_URL,
+			data : COMMAND,
+			async : false,
+			beforeSend : function(x) {
+				if (x && x.overrideMimeType) {
+					x.overrideMimeType("application/j-son;charset=UTF-8");
+				}
+			},
+			dataType : "json",
+			success : function(data) {
+				dataret = data;
+				if (data.ERROR) {
+					// ERROR HAS HAPPEND 
+					alert(data.ERROR);
+				}
+			}
+		});
+		return dataret;
+	}
+  
+  function UnixDate2Date(unix_timestamp)
+  {
+    var date = new Date(unix_timestamp*1000);
+    return date;
+  }  
+  
+  function getMarelabPH(){
+    var datajson;
+    var data =[];
+    
+    datajson = jsonPH(STARTDATE,ENDDATE);
+    for ( var x = 0; x < datajson.PH.length; x++) { 
+    		 if (datajson.PH[x].VALUE > 5){
+         var tupple = [];
+         tupple[0] = (datajson.PH[x].DATE*1000);
+         tupple[1] = datajson.PH[x].VALUE;
+         data[x] = tupple;
+         }
+		}
+    var endDate =  UnixDate2Date(datajson.PH[datajson.PH.length-1].DATE);
+    var startDate =  UnixDate2Date(datajson.PH[0].DATE);
+    if (DEBUG==1) alert("start:"+startDate.getHours()+":"+startDate.getMinutes()+":"+startDate.getSeconds()+" end:"+endDate.getHours()+":"+endDate.getMinutes()+":"+endDate.getSeconds()) ;
+    
+		$.plot("#placeholder", [data],{
+			xaxis: { mode: "time", 
+               color:  "#578299",
+               tickColor: "#578299",
+               zoomRange: [1000, datajson.PH[datajson.PH.length-1].DATE*1000],
+			   panRange: [datajson.PH[0].DATE*1000, datajson.PH[datajson.PH.length-1].DATE*1000*10]
+             },  
+      yaxis: {  
+               color:  "#578299",
+               tickColor: "#578299",
+               zoomRange: [4, 10],
+			   panRange: [4, 10]
+             },
+      grid: {
+              borderColor: "#578299",
+              color: "#578299"
+            } ,
+      zoom: {
+				interactive: true
+			},
+	  pan: {
+				interactive: true
+			}     
+		});
+    $('.flot-text').css('color','#00b3e3');
+		// Add the Flot version string to the footer
+	$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+  }							
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+</head>
+<title>marelab reef control</title>
+<body>
+	<div id="placeholder" class="demo-placeholder"
+		style="width: 800px; height: 400px"></div>
+</body>
+</html>
+

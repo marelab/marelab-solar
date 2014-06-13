@@ -1,0 +1,56 @@
+ //Tests
+    LedString *ledstring = new LedString();
+    LedString *ledstringA = new LedString();
+    LedString *ledstringB = new LedString();
+
+
+    ledstring->setLdI2cChannel( 1);
+    ledstring->setLdName("RGB-Rot");
+    ledstring->setLdNumber(1);
+
+    ledstringA->setLdI2cChannel( 2);
+    ledstringA->setLdName("RGB-GRÜN");
+    ledstringA->setLdNumber(2);
+
+    ledstringB->setLdI2cChannel( 3);
+    ledstringB->setLdName("RGB-BLAU");
+    ledstringB->setLdNumber(3);
+
+    ledstring->printLedString();
+
+    LedTimerListe ledListe;
+    ledListe.AddLed(*ledstring);
+    ledListe.AddLed(*ledstringA);
+    ledListe.AddLed(*ledstringB);
+    printf("\nCount LedListe=%i\n",ledListe.CountLed());
+
+    LedString *ledstring2;
+    ledstring2 = ledListe.GetLed(0);
+    ledstring2->setLdTimeArray(1,99);
+    ledstring2->setLdTimeArray(47,99);
+    ledstring2->printLedString();
+    ledstring2 = ledListe.GetLed(1);
+    ledstring2->printLedString();
+    ledstring2 = ledListe.GetLed(2);
+    ledstring2->printLedString();
+    printf("\nSERILIZATION...STL\n");
+
+    std::string output;
+    CJsonSerializer::Serialize(&ledListe,output);
+    std::cout << "testClass Serialized Output\n" << output << "\n\n\n";
+
+    ofstream out(CONFIGFILE);
+    out << output;
+
+    
+       /* bool parsingSuccessful = reader.parse( in, rootin );
+    if ( !parsingSuccessful )
+    {
+        // report to the user the failure and their locations in the document.
+        std::cout  << "Failed to parse configuration\n"
+                   << reader.getFormatedErrorMessages();
+    }else
+    {
+    	std::cout  << "parse successfull\n";
+    }
+/*

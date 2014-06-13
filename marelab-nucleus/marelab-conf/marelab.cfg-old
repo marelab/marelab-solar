@@ -1,0 +1,236 @@
+{
+   "GPIO Adapter" : {},
+   "I2C Adapter" : {
+      "ADR_MAX520_1" : 22,
+      "ADR_PCF8574_1" : 20,
+      "CHIPS" : [
+         {
+            "DEVICE_ADR" : 32,
+            "DEVICE_BUS" : "/dev/i2c-0",
+            "DEVICE_NAME" : "PCF8574",
+            "DEVICE_NO" : 1
+         },
+         {
+            "DEVICE_ADR" : 22,
+            "DEVICE_BUS" : "/dev/i2c-0",
+            "DEVICE_NAME" : "MAX520",
+            "DEVICE_NO" : 2
+         }
+      ]
+   },
+   "LOGIC_ADAPTER_PLUGINS_BINDING" : [
+      {
+         "AdapterPluginName" : "I2C Adapter",
+         "AdapterPluginNameVersion" : "0.1",
+         "LogicPluginName" : "Stream",
+         "LogicPluginNameVersion" : "0.1"
+      },
+      {
+         "AdapterPluginName" : "I2C Adapter",
+         "AdapterPluginNameVersion" : "0.1",
+         "LogicPluginName" : "LedDimmer",
+         "LogicPluginNameVersion" : "0.2"
+      }
+   ],
+   "LedDimmer" : [
+      {
+         "LedListe" : [
+            {
+               "LedString" : {
+                  "CHARTCOLOR" : "#efecec",
+                  "LDI2CCHANNEL" : 2,
+                  "LDNAME" : "a",
+                  "LDNUMBER" : 1,
+                  "LDTIMEARRAY" : [
+                     0,
+                     33,
+                     0,
+                     82,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     100,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     37,
+                     57,
+                     52,
+                     62,
+                     65,
+                     72,
+                     95,
+                     88,
+                     88,
+                     85,
+                     81,
+                     5,
+                     35,
+                     98,
+                     27,
+                     97,
+                     45,
+                     43,
+                     56,
+                     71,
+                     89,
+                     51,
+                     40,
+                     34,
+                     34,
+                     30,
+                     21,
+                     0
+                  ]
+               }
+            },
+            {
+               "LedString" : {
+                  "CHARTCOLOR" : "#1b27c0",
+                  "LDI2CCHANNEL" : 3,
+                  "LDNAME" : "b",
+                  "LDNUMBER" : 2,
+                  "LDTIMEARRAY" : [
+                     0,
+                     0,
+                     0,
+                     31,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     43,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     47,
+                     60,
+                     56,
+                     0,
+                     3,
+                     99,
+                     0,
+                     41,
+                     4,
+                     22,
+                     94,
+                     6,
+                     97,
+                     3,
+                     98,
+                     20,
+                     74,
+                     79,
+                     0,
+                     0,
+                     0,
+                     0
+                  ]
+               }
+            }
+         ],
+         "version" : "0.1"
+      }
+   ],
+   "Modbus Adapter" : {},
+   "NUCLEUS" : {
+      "DAEMON_LOCK_PATH" : "/mnt/marelab/marelab-nucleus/marelab_cfg/",
+      "DAEMON_NAME" : "marelab-nucleus",
+      "DAEMON_NAME_LOCK" : "marelab-nucleus-lock",
+      "DEAMON_PATH" : "/mnt/marelab/marelab-nucleus",
+      "NUCLEUS_VERSION" : "Nucleus 0.2",
+      "PLUGINDIR" : "/mnt/marelab/marelab-nucleus/plugins/",
+      "RUN_AS_USER" : "marelab",
+      "SOCK_PATH" : "/mnt/marelab/marelab-nucleus/marelab_cfg/marelab_socket"
+   },
+   "Stream" : [
+      {
+         "StreamListe" : [
+            {
+               "LedString" : {
+                  "CHARTCOLOR" : "#bd1ec2",
+                  "LDI2CCHANNEL" : 12,
+                  "LDNAME" : "AQ1LINKS_OBEN",
+                  "LDNUMBER" : 1,
+                  "LDTIMEARRAY" : [
+                     0,
+                     100,
+                     0,
+                     100,
+                     0,
+                     100,
+                     0,
+                     100,
+                     0,
+                     100,
+                     0,
+                     100,
+                     0,
+                     99,
+                     0,
+                     100,
+                     0,
+                     100,
+                     0,
+                     100,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     100,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     0,
+                     100,
+                     0,
+                     0,
+                     0,
+                     100,
+                     0,
+                     0,
+                     0
+                  ]
+               }
+            }
+         ],
+         "fooddelay" : 5,
+         "foodpower" : 10,
+         "version" : "0.1"
+      }
+   ]
+}

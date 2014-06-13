@@ -1,0 +1,112 @@
+<div id="tabs-1">
+	<div id="RECHTS" class=".ui-accordion-header">	
+		<div id="titel_setup_content">
+		<div id="TOOLBAR-TITEL">Stream Setup</div>
+		<div id="TOOLBAR">
+			<input type="image" onclick="foodtimer();" src="img/foodtimer.png" alt="sd" width="32" height="32" /></td>
+    		<input type="image" onclick="streamstop();" src="img/stop.png" alt="sd" width="32" height="32" /></td>
+   			<input type="image" onclick="streamCONNECTOR();" src="img/connector.png" alt="sd" width="32" height="32" /></td>
+    		<input type="image" onclick="stream_SAVECURVE();" src="img/savef.png" width="32" height="32" alt="save config" />
+		</div>
+		</div>
+    	<canvas id="stream" width="700" height="400"> </canvas>
+	</div>
+</div>
+<div id="tabs-2">
+	<div id="RECHTS" class=".ui-accordion-header">
+		<div class="streamtable">
+		 <form>
+		    <div id="PAGESTREAM"></div>
+			<table id="streamlist">
+				<tbody>
+					<tr>	
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<!--  SLIDER 
+<div id="tabs-3">
+	<div id="RECHTS" class=".ui-accordion-header">
+		<div class="streamtable">
+		 <form>
+		    <div id="pager1">
+		    <div id="eq">
+  				<span>88</span>
+  				<span>77</span>
+  				<span>55</span>
+  				<span>33</span>
+  				<span>40</span>
+  				<span>45</span>
+  				<span>70</span>
+			</div>
+		    </div>
+		</form>
+		</div>
+	</div>
+</div>
+ -->
+<!-- RGB Color Dialog selecting graph & text color of LED strings entrys -->
+<div id="GraphRgbSelector" style="display: none" title="LED RGB Color">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th align="left"  scope="col">
+		<input type="text" id="color" name="color" value="#123456" />
+    	<div id="colorpicker"></div>
+    </th>
+  </tr>
+</table>
+</div>
+
+
+<!-- RGB Color Dialog for the RGB Light designer which sets 3 Leds at the same time -->
+<div id="dialogRGB" style="display: none" title="LED RGB Color">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th align="left" rowspan="4" scope="col">
+		<input type="text" id="color" name="color" value="#123456" />
+    	<div id="colorpicker"></div>
+    </th>
+    <th align="left" scope="col">red:</th>
+    <th align="left" scope="col" id="redleddropdown">
+    	<select id="RED_LED size="1">
+				<option>LED1</option>
+				<option>LED2</option>
+				<option>LED3</option>
+		</select>
+	</th>
+  </tr>
+  <tr>
+    <td align="left">green:</td>
+    <td align="left" id="greenleddropdown">
+    	<select id="GREEN_LED" size="1">
+				<option>LED1</option>
+				<option>LED2</option>
+				<option>LED3</option>
+		</select>
+    </td>
+  </tr>
+  <tr>
+    <td align="left">blue:</td>
+    <td align="left" id="blueleddropdown">
+    	<select id="BLUE_LED" size="1">
+				<option>LED1</option>
+				<option>LED2</option>
+				<option>LED3</option>
+		</select>
+    </td>
+  </tr>
+  <!-- <tr>
+    <td colspan="2"><button id="BUTTON_RGB2LED" onclick="OpenRGBDialog()">Save RGB to LED</button></td>
+  </tr>
+   -->
+</table>
+</div>
+

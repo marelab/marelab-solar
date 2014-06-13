@@ -1,0 +1,68 @@
+//============================================================================
+// Name        : modbustest.cpp
+// Author      : 
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <vector>
+#include <cstdio>
+#include <errno.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <sys/ioctl.h>
+#include <linux/serial.h>
+
+#include <iostream>
+#include <list>
+
+#include "modbus.h"
+#include "marelab_modbus.h"
+#include "MBD.h"
+#include "marelab_bus.h"
+
+
+
+//#define PACK16LOHI(v1,v2) (unsigned int)(((v2)<<8)+v1)
+
+
+using namespace std;
+
+
+int main() {
+			  MBD *mBD;
+	    	  cout << "Trying modbus \n";
+
+	    	  Bus *bus = new Bus();
+	    	  bus->ScanBus();
+
+	    	  mBD = bus->GetMBD(4);
+
+
+	    	  printf("THE SELECTED MBD is : %s\n",mBD->MBD_getName().c_str());
+
+	    	  bus->~Bus();
+	    	  printf("Ende modbus \n");
+
+
+	    	  list<string> l = bus->getComList();
+
+	    	    list<string>::iterator it = l.begin();
+	    	    while (it != l.end()) {
+	    	        cout << *it << endl;
+	    	        it++;
+	    	    }
+
+	return 0;
+}

@@ -31,7 +31,7 @@
 /* Change this to whatever your daemon should place his PID lock file */
 //#define DAEMON_LOCK_PATH "/mnt/marelab/marelab-nucleus/marelab_cfg/"
 //#define DAEMON_NAME_LOCK "marelab-nucleus-lock"
-#define DEAMON_PATH "/home/pi/nucleus"
+#define DEAMON_PATH "../marelab-deamon"
 
 /* Change this to whatever your daemon places the ipc*/
 //#define DAEMON_PIPE_IN "/home/marelab/msp"
@@ -46,7 +46,7 @@
 // FOR LINUX
 //#define SOCK_PATH "/mnt/marelab/marelab-nucleus/marelab_cfg/marelab_socket"
 // FOR PI
-#define SOCK_PATH "/home/pi/nucleus/marelab_socket"
+#define SOCK_PATH "../marelab-conf/marelabstreamsocket"
 
 
 

@@ -189,6 +189,8 @@ wget "$MARELAB_REPO/marelab-aqua-pi/marelab-conf/boa.conf"
 cd $MARELAB_BASE_DIR
 cd marelab-aqua/marelab-web
 wget "$MARELAB_REPO/marelab-aqua-pi/marelab-web/marelabwebpack.tar.gz"
+tar xvfz marelabwebpack.tar.gz
+rm marelabwebpack.tar.gz
 
 cd ..
 cd ..

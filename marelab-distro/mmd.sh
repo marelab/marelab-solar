@@ -44,5 +44,40 @@ cd marelab-web
 tar -czf marelabwebpack.tar.gz *
 mv $WEB_ARCHIEV $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-web/$WEB_ARCHIEV
 
+clear
+echo "move executables x86 & ARM to distribution directory"
+cd $MARELAB_BASE_DIR 
+cd ../marelab-adapter-i2c/Default
+cp libmarelab-adapter-i2c $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-plugin/X86-32/libmarelab-adapter-i2c
+cd ../DebugCrossPi
+cp libmarelab-adapter-i2c.so $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-plugin/ARM/libmarelab-adapter-i2c.so
 
-#entpacken tar xvfz datei.tar.gz
+
+cd $MARELAB_BASE_DIR 
+cd ../marelab-plugin-led/Default
+cp libmarelab-plugin-led $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-plugin/X86-32/libmarelab-plugin-led
+cd ../DebugCrossPi
+cp libmarelab-plugin-led.so $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-plugin/ARM/libmarelab-plugin-led.so
+
+cd $MARELAB_BASE_DIR 
+cd ../marelab-cgi/Default
+cp marelab-cgi $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-cgi/X86-32/marelab-cgi
+cd ../DebugCrossPi
+cp marelab-cgi $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-cgi/ARM/marelab-cgi
+
+cd $MARELAB_BASE_DIR 
+cd ../marelab-phcgi/Default
+cp marelab-phcgi $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-cgi/X86-32/marelab-phcgi 
+cd ../DebugCrossPi
+cp marelab-phcgi $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-cgi/ARM/marelab-phcgi
+
+cd $MARELAB_BASE_DIR 
+cd ../marelab-nucleus/Default
+cp marelab-nucleus $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-deamon/X86-32/marelab-nucleus
+cd ../PiDebugCrossCompile
+cp marelab-nucleus $MARELAB_BASE_DIR/marelab-aqua-pi/marelab-deamon/ARM/marelab-nucleus
+echo "FINISH DISTRIBUTION"
+
+
+
+

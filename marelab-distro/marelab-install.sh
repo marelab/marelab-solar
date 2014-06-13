@@ -188,13 +188,13 @@ cd marelab-aqua/temp-install
 wget "$MARELAB_REPO/marelab-aqua-pi/marelab-conf/boa.conf"
 cd $MARELAB_BASE_DIR
 cd marelab-aqua/marelab-web
-wget "$MARELAB_REPO/marelab-aqua-pi/marelab-web/index.html"
+wget "$MARELAB_REPO/marelab-aqua-pi/marelab-web/marelabwebpack.tar.gz"
 
 cd ..
 cd ..
 #cp /etc/boa/boa.conf $MARELAB_BASE_DIR/marelab-aqua/temp-install     		#first get a boa.conf copy to the temp dir
 #CHANGE PARAMETERS OF BOA.CONF
-sed -e 's:^ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/:ScriptAlias /cgi-bin/ '"$MARELAB_BASE_DIR"'/marelab-aqua/marelab-cgi/:' \
+sed -e 's:^ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/:ScriptAlias /cgi/ '"$MARELAB_BASE_DIR"'/marelab-aqua/marelab-cgi/:' \
     -e 's:^DocumentRoot /var/www:DocumentRoot '"$MARELAB_BASE_DIR"'/marelab-aqua/marelab-web:' \
     -e 's:^#VerboseCGILogs:VerboseCGILogs :' \
     -e 's:^#UseLocaltime:UseLocaltime:' \

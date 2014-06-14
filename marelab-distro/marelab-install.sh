@@ -210,15 +210,6 @@ sudo /etc/init.d/boa start
 chmod 666 $MARELAB_BASE_DIR/marelab-aqua/marelab-logs/boa_error.log
 chmod 666 $MARELAB_BASE_DIR/marelab-aqua/marelab-logs/boa_access.log
 echo "boa setup & configuration complete ..." 
-
-#CONFIGURE LINUX LOGGING DEAMON 
-/etc/init.d/rsyslog stop
-#ADD NEW MARELAB to rssyslog conf
-echo "configure rsyslog deamon for for marelab use ..."
-
-/etc/init.d/rsyslog start 
-	
-
 }
 
 #configures the OS i2c device bus
@@ -273,7 +264,21 @@ cd $MARELAB_BASE_DIR/marelab-aqua/temp-install
  
 } 
 
-
+#CONFIGURE LINUX LOGGING DEAMON 
+function _configurersyslog(){
+	echo "configure rsyslog deamon for for marelab use ..."
+	echo " stoping rsyslog deamon  ..."		
+	sudo /etc/init.d/rsyslog stop
+	echo " download rsysconfig add on for marelab  ..."
+	cd $MARELAB_BASE_DIR/marelab-aqua/temp-install
+	curl $MARELAB_REPO/marelab-aqua-pi/marelab-conf/marelabrsyslog.conf > marelabrsyslog.conf
+	echo " manipulate the downloaded conf ..."
+	sed -e 's|^:programname, isequal, "marelab-ph" MARELAB_PH_LOG_CGI|:programname, isequal, "marelab-ph" '"$MARELAB_BASE_DIR/marelab-aqua/marelab-logs/marelab-ph.log"'|' \
+    	-e 's|^:programname, isequal, "marelab-cgi" MARELAB_CGI|:programname, isequal, "marelab-cgi" '"$MARELAB_BASE_DIR/marelab-aqua/marelab-logs/marelab-cgi.log"'|' \
+    	-e 's|^:programname, isequal, "nucleus" MARELAB_NUCLEUS_LOG|:programname, isequal, "nucleus" '"$MARELAB_BASE_DIR/marelab-aqua/marelab-logs/nucleus.log"'|' < marelabrsyslog.conf > marelabrsyslog.conf.temp
+	sudo mv marelabrsyslog.conf.temp /etc/rsyslog.d/marelabrsyslog.conf
+	sudo /etc/init.d/rsyslog start 	
+}
 clear
 
 echo "marelab aqua install version: $VERSION on port: $WWW_PORT"
@@ -295,9 +300,10 @@ ret=false
 #fi
 
 _getinstalldir  						# get the dir the script is in thats the base for all installation & removing 
-_pre_install
-_configureI2Cbus
-_configureMarelabNucleus
+_pre_install							# creates marelab dir sructure and downloads files and packages needed by marelab
+_configureI2Cbus						# todo
+_configureMarelabNucleus				# configers marelab.conf and installs the deamon init.d scripts
+_configurersyslog						# configures the rsyslog to log related nucelus & cgi msgs to the marelab-log dir
 # SAFETY MAKE AGAIN ALL FILES TO USER
 #echo "$USER"
 echo "clean up"

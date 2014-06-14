@@ -4,57 +4,62 @@
 <title>marelab dev</title>
 <!--  Marelab CSS -->
 <link rel="stylesheet" href="css/marelab.css" />
-<link href="favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+<link href="favicon.ico" rel="shortcut icon"
+	type="image/vnd.microsoft.icon" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Untitled Document</title>
 <style type="text/css">
 body,td,th {
 	color: #FFF;
-	text-align: left;
+	text-align: center;
 	link: #FFF;
 	vlink: #FFF;
 }
+
 body {
 	background-color: #000000;
 }
+
 .MENUM {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	font-size: 18px;
 	text-align: left;
 }
+
 .mm {
 	text-align: left;
 }
 </style>
 
 <!--  JQUERY CSS -->
-<link rel="stylesheet" href="script/jquery/themes/dark-hive/jquery-ui.css" />
+<link rel="stylesheet"
+	href="script/jquery/themes/dark-hive/jquery-ui.css" />
 
 <style type="text/css">
 .PluginButton {
-	background-color:#114a69;
-	-moz-border-radius:9px;
-	-webkit-border-radius:9px;
-	border-radius:9px;
-	display:inline-block;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:5px 10px;
+	background-color: #114a69;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
+	display: inline-block;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 5px 10px;
 	width: 120px;
-	text-decoration:none;
+	text-decoration: none;
 }
 </style>
 
 <!--  JQUERY INCLUDE -->
-<script src="script/jquery/jquery-1.8.2.js"></script>
+<script src="script/jquery/jquery-1.8.2.js" type=""></script>
 
 <!-- Language includes -->
-<script src="script/marelab/marelabdev_lan_EN.js"></script>
+<script src="script/marelab/marelabdev_lan_EN.js" type=""></script>
 
-<script>
+<script type="">
 function CGI_Test()
 {
 	//TestMarelabCGI();
@@ -132,92 +137,65 @@ function getMarelabData(what2Get) {
 
 </head>
 
-<body link="#FFF" vlink="#FFF" >
-
-<div id="titel_setup">
-		<div id="TOOLBAR-TITEL"><img src="img/logo2-marelab.png"></div>
-</div>
-	
+<body link="#FFF" vlink="#FFF">
+	<br></br>
 	<div id="container-content">
-		<div id="tabs">
-			<!--  
-			<div id="LINKS">
-				<p class="PluginButton" onClick="SetupMenu();">Setup</p>	
-			</div>
-			-->
-			<div id="tabs-1">
-				<div id="RECHTS">
-					
-					<!-- **************   SETUP CONTENT ********************* -->
-					<div id="titel_setup_content">
-						<div id="TOOLBAR-TITEL" ><span id="marelabDevSystemTitle"><script>changeText('marelabDevSystemTitle');</script></span></a></div>
-					</div>
-					
+
+
+		<br></br>
+		<table border="0" cellspacing="0" cellpadding="0" align="center">
+			<tr>
+				<th><a href="http://www.marelab.org"><img
+						src="img/marelab-titel-logo.png" border="0" alt="www.marelab.org" /></a>
+				</th>
+			</tr>
+			<tr>
+				<th><a href="marelab-start.html"><img
+						src="img/tip-login.png" border="0" alt="login to the marelab gui" /></a>
+				</th>
+			</tr>
+			<tr>
+				<th><a href="http://www.marelab.org"><img
+						src="img/tip-org.png" border="0" alt="www.marelab.org" /></a> <!-- 
+									<th scope="col" align="left"><a href="marelab-start.html">marelab
+											gui</a></th>
+									<th scope="col" align="left"><span id="marelabLiveSystem"><script>
+										changeText('marelabLiveSystem');
+									</script></span> --></th>
+			</tr>
+			<tr>
+				<th><a href="http://wiki.marelab.org"><img
+						src="img/tip-wiki.png" border="0" alt="marelab wiki" /></a> <!-- 
+									<th scope="col" align="center"><img src="img/tip-wiki.png"></img></th>
+									<th scope="col" align="left"><a href="marelab-start.html">marelab
+											gui</a></th>
+									<th scope="col" align="left"><span id="marelabLiveSystem"><script>
+										changeText('marelabLiveSystem');
+									</script></span>
+									 --></th>
+			</tr>
+			<tr>
+				<th><font size="1">copyrights by
+						<p></p> <a href="http://www.marelab.org">www.marelab.org</a>
+				</font></th>
+			</tr>
+		</table>
+		<br> </br>
+	</div>
+	
+	<!--
 					<div id="container">
-						<div id="LINKS">
-							<!-- FILL -->
-						</div>
-						<div id="RECHTS" class=".ui-accordion-header">
-			
-							<br></br>
-							<table border="0" cellspacing="0" cellpadding="0">
-								<tr>
-									<th scope="col" align="left"><a href="http://www.marelab.org">www.marelab.org</a></th>
-									<th scope="col" align="left"><span id="marelabLinkTextWeb"><script>changeText('marelabLinkTextWeb');</script></span></th>
-								</tr>
-								<tr>
-									<th scope="col" align="left"><a href="http://marelab-solar.googlecode.com/git/">CODE</a></th>
-									<th scope="col" align="left"><span id="marelabLinkTextSVN"><script>changeText('marelabLinkTextSVN');</script></span></th>
-								</tr>
-								<tr>
-									<th scope="col" align="left"><a href="marelab-start.html">marelab gui</a></th>
-									<th scope="col" align="left"><span id="marelabLiveSystem"><script>changeText('marelabLiveSystem');</script></span></th>
-								</tr>
-							</table>
-
-							</th>
-							</tr>
-
-							</table>
-						</div>
-						<br></br>
-					</div>
-
-
-
-					<div id="titel_setup_content">
-						<div id="TOOLBAR-TITEL" ><span id="marelabLiveSystemtest"><script>changeText('marelabLiveSystemtest');</script></span></div>
-					</div>
-					
-					
-					<div id="container">
-						<!-- MARELAB TEST -->
-						<!-- ************************* -->
-						<div id="LINKS">
-							<!-- FILL -->
-						</div>
 						<div id="RECHTS">
 							<div id="marelabtest">
-							<button onclick="CGI_Test();">test marelab cgi</button><br></br>
-							<button onclick="NUCLEUS_Test();">test marelab nucleus</button>
-							<button onclick="NUCLEUS_Stop();">stop nucleus</button>
-								<!-- LIST OF PLUGINS -->
-								<!-- ************************* -->
+								<button onclick="CGI_Test();">test marelab cgi</button>
+								<br></br>
+								<button onclick="NUCLEUS_Test();">test marelab nucleus</button>
+								<button onclick="NUCLEUS_Stop();">stop nucleus</button>
+								
 							</div>
 						</div>
 					</div>
-					<!-- **************   END SETUP CONTENT ********************* -->
-
-				</div>
-				<!-- </div> CONTAINER-RIGHT -->
-			</div>
-		</div>
-	</div>
-		<div id="footer">
-			<div id="TOOLBAR-TITEL">
-				<a href="http://www.marelab.org">open source reef control www.marelab.org</a>
-			</div>
-		<div id="TOOLBAR"></div>
-	</div>
+					-->
+	<!-- **************   END SETUP CONTENT ********************* -->
 </body>
 </html>

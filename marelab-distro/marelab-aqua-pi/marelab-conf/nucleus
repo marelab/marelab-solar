@@ -11,20 +11,74 @@
 # Description:       marelab-nucleus deamon for reef tank control
 ### END INIT INFO
 
+#NAME=nucleus
+NAME=nucleus
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+DAEMON=START_NUCLEUS_PATH
+#PIDFILE=/home/motion/motion_daemon.pid
+PIDFILE=DEAMON_PID_FILE
+#OPTIONS="-c /etc/motion/motion.conf"
+OPTIONS="NUCLEUS-OPTIONS"
+#USER="motion"
+USER="marelab"
 
-case "$1" in 
-    start)
-        echo "Starting servoblaster"
-        START_NUCLEUS_PATH
-        ;;
-    stop)
-        echo "Stopping servoblaster"
-        killall marelab_nucleus
-        ;;
-    *)
-        echo "Usage: /etc/init.d/nucleus start|stop"
-        exit 1
-        ;;
+
+trap "" 1
+export LANG=C
+export PATH
+
+test -f $DAEMON || exit 0
+
+
+case "$1" in
+  start)
+    echo "Starting marelab nuleus deamon : $NAME"
+    start-stop-daemon --start --chuid $USER --exec $DAEMON -- $OPTIONS
+    ;;
+   
+  stop)
+    echo "Stopping motion detection : $NAME"
+    start-stop-daemon --stop --pidfile $PIDFILE --stop  --retry 30
+    ;;
+
+  status)
+    echo "Status motion detection : $NAME"
+    if (test -f $PIDFILE); then
+        echo -n "Running process for $NAME : "
+        pidof $NAME
+    else
+        echo "Stopped"
+    fi
+    ;;
+
+#  reload-config)
+#    echo "Reloading $NAME configuration"
+#    start-stop-daemon --stop --pidfile $PIDFILE --signal HUP --exec $DAEMON
+#    ;;
+
+#  restart-motion)
+#    echo "Restarting $NAME"
+#    start-stop-daemon --stop --pidfile $PIDFILE --oknodo --exec $DAEMON  --retry 30
+#    start-stop-daemon --start --pidfile $PIDFILE --exec $DAEMON
+#    ;;
+
+#  restart)
+#    $0 restart-motion
+#    exit $?
+#    ;;
+
+  *)
+    echo "Usage: /etc/init.d/$NAME {start|stop|status}"
+    exit 1
+    ;;
 esac
 
-exit 0
+if [ $? == 0 ]; then
+        echo .
+        exit 0
+else
+        echo failed
+        exit 1
+fi
+
+

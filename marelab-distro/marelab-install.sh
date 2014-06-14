@@ -262,7 +262,10 @@ cd $MARELAB_BASE_DIR
     echo " -> make it start with the OS ...";
 cd $MARELAB_BASE_DIR/marelab-aqua/temp-install    
     curl $MARELAB_REPO/marelab-aqua-pi/marelab-conf/nucleus > nucleus
-    sed -e 's|START_NUCLEUS_PATH|'"$MARELAB_BASE_DIR/marelab-aqua/marelab-deamon/marelab-nucleus -config $MARELAB_BASE_DIR/marelab-aqua/marelab-conf/marelab.conf"'|' < nucleus > tempnucleus
+    sed -e 's|^DAEMON=START_NUCLEUS_PATH|DAEMON='"$MARELAB_BASE_DIR/marelab-aqua/marelab-deamon/marelab-nucleus"'|' \
+    	-e 's|^PIDFILE=DEAMON_PID_FILE|PIDFILE='"$MARELAB_BASE_DIR/marelab-aqua/marelab-conf/marelab-nucleus.pid"'|' \
+    	-e 's|^OPTIONS="NUCLEUS-OPTIONS"|OPTIONS=\"'"-config $MARELAB_BASE_DIR/marelab-aqua/marelab-conf/marelab.conf"'\"|' \
+   		-e 's|^USER="marelab"|USER=\"'"$INSTALL_USER"'\"|' < nucleus > tempnucleus
     sudo mv tempnucleus /etc/init.d/nucleus
     chmod 775 /etc/init.d/nucleus
     sudo update-rc.d nucleus defaults

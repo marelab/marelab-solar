@@ -107,8 +107,8 @@ function _downloadMarelab(){
  		cd marelab-cgi
  		wget "$MARELAB_REPO/marelab-aqua-pi/marelab-cgi/ARM/marelab-cgi"
  		wget "$MARELAB_REPO/marelab-aqua-pi/marelab-cgi/ARM/marelab-phcgi"
- 		chmod 770 marelab-cgi
- 		chmod 770 marelab-phcgi
+ 		chmod 775 marelab-cgi
+ 		chmod 775 marelab-phcgi
  	fi
 }
 

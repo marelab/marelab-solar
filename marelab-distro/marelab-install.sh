@@ -1,6 +1,5 @@
 #!/bin/bash 
 # marelab aqua installation script
-
 # VARIABLES CAN CHANGED BY USER
 WWW_PORT=80
 
@@ -10,7 +9,7 @@ DEFAULT_USER="tomtom"					#only use should be with the deamon
 DEFAULT_PASSWORD="password"				#no function yet
 #Was old repos becaus of bug with wget usage switched to github
 #MARELAB_REPO="https://marelab-solar.googlecode.com/git/marelab-distro"
-MARELAB_REPO="https://github.com/marelab/marelab-solar/raw/master/marelab-distro"
+MARELAB_REPO="https://raw.githubusercontent.com/marelab/marelab-solar/master/marelab-distro"
 PI_REPO="/marelab-aqua-pi"				#switch between differnt OS repos
 MARELAB_BASE_DIR=""						#its the dir the script is started from
 MARELAB_OS=""							#automatic set to PC or ARM for getting the right distribution

@@ -175,7 +175,7 @@ cd ..
 #chown -R marelab:marelab *
 	
 #CONFIGURE BOA FOR MARELAB
-/etc/init.d/boa stop
+sudo /etc/init.d/boa stop
 echo "configure boa webserver for marelab use ..."
 echo "getting a clean installed boa.conf from marelab git ..."
 cd $MARELAB_BASE_DIR
@@ -205,7 +205,7 @@ sudo cp marelab-aqua/temp-install/boa.conf /etc/boa/boa.conf
 
 #chown -R $DEFAULT_USER:$DEFAULT_USER *
 #VerboseCGILogs    
-/etc/init.d/boa start
+sudo /etc/init.d/boa start
 #!!!changing rights of logs to see
 chmod 666 $MARELAB_BASE_DIR/marelab-aqua/marelab-logs/boa_error.log
 chmod 666 $MARELAB_BASE_DIR/marelab-aqua/marelab-logs/boa_access.log

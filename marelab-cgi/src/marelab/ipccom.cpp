@@ -78,13 +78,14 @@ void ipccom::openServer() {
 	 }
 }
 
-void ipccom::openClient() {
+bool ipccom::openClient() {
 
 	 int  len;
 
 	 if ((socketid = socket(AF_UNIX, SOCK_STREAM, 0)) == -1)
 	 {
 	   throw "Socket can't be opened";
+	   return false;
 	 }
 	 else
 	 {
@@ -94,9 +95,10 @@ void ipccom::openClient() {
 		 if (connect(socketid, (struct sockaddr *)&remote, len) == -1) {
 			 string error =  strerror(errno);
 			 syslog( LOG_ERR, "CGI Connect 2 Nuleus Error [%s] ERROR...",error.c_str());
-
+			 return false;
 		 }
 	 }
+	 return true;
 }
 
 

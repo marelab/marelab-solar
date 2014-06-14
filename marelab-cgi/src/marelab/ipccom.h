@@ -48,7 +48,7 @@ private:
 public:
 	ipccom();
 	void openServer();
-	void openClient();
+	bool openClient();
 	void closeServer();
 	bool recvSock();
 	bool recvSockFromNucleus();

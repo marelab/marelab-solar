@@ -92,7 +92,9 @@ int main(int argc, char **argv)
          if (scommand=="STARTDEAMON")
          {
         	 syslog( LOG_ERR, "Trying to start Deamon per web request...");
-        	 execv(DEAMON_PATH,NULL);
+        	 //char *const parmList[] = {"/bin/ls", "-l", "/u/userid/dirname", NULL};
+        	 char *const parmList[] = {NULL};
+        	 execv(DEAMON_PATH,parmList);
          }
          // THE CGI VERSION INFO IS CALLED
          if (scommand=="MARELAB_CGI_VERSION")
@@ -156,8 +158,10 @@ int main(int argc, char **argv)
        ipccom sock;
        try
        {
-    	   sock.openClient();
+    	   if (sock.openClient())
+    	   {
     	   syslog( LOG_ERR, "Client socket created successfull...");
+
     	   string msg;
     	   if (!sock.sendSock(string2send))
     		   syslog( LOG_ERR, "Client socket send failed...");
@@ -170,6 +174,13 @@ int main(int argc, char **argv)
     		  	cout << "content-type: text/html" << endl << endl;
     		  	cout << sock.getMsg().c_str();
     		  }
+    	   }
+    	   }else
+    	   {
+    		   // ERROR HAPPEND WHILE OPENING SOCKETCLIENT
+    		   syslog( LOG_ERR, "Client socket failed to open by cgi..");
+    		   cout << "content-type: text/html" << endl << endl;
+    		   cout << "Client socket failed to open by cgi..: check user rights of filesocket!!!";
     	   }
     	   sock.closeServer();
 

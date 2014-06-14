@@ -265,7 +265,7 @@ cd $MARELAB_BASE_DIR/marelab-aqua/temp-install
     sed -e 's|START_NUCLEUS_PATH|'"$MARELAB_BASE_DIR/marelab-aqua/marelab-deamon/marelab-nucleus -config $MARELAB_BASE_DIR/marelab-aqua/marelab-conf/marelab.conf"'|' < nucleus > tempnucleus
     sudo mv tempnucleus /etc/init.d/nucleus
     chmod 775 /etc/init.d/nucleus
-    sudo update-rc.d /etc/init.d/nucleus defaults
+    sudo update-rc.d nucleus defaults
  cd $MARELAB_BASE_DIR
  
 } 

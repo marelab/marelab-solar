@@ -89,24 +89,24 @@ function _downloadMarelab(){
     	echo "downloading linux pc based version of marelab..."
     	cd marelab-plug
     	
-    	wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-plugin/X86-32/libmarelab-adapter-i2c"
-    	wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-plugin/X86-32/libmarelab-plugin-led"
+    	wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-plugin/X86-32/libmarelab-adapter-i2c
+    	wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-plugin/X86-32/libmarelab-plugin-led
  		cd ..
  		cd marelab-cgi
- 		wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-cgi/X86-32/marelab-cgi"
- 		wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-cgi/X86-32/marelab-phcgi"
+ 		wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-cgi/X86-32/marelab-cgi
+ 		wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-cgi/X86-32/marelab-phcgi
  		chmod 770 marelab-cgi
  		chmod 770 marelab-phcgi
  	fi	
  	if [ "$MARELAB_OS" == "ARM" ]; then
     	echo "downloading linux ARM based version of marelab..."
     	cd marelab-plug
-    	wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-plugin/ARM/libmarelab-adapter-i2c.so"
-    	wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-plugin/ARM/libmarelab-plugin-led.so"
+    	wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-plugin/ARM/libmarelab-adapter-i2c.so
+    	wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-plugin/ARM/libmarelab-plugin-led.so
  		cd ..
  		cd marelab-cgi
- 		wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-cgi/ARM/marelab-cgi"
- 		wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-cgi/ARM/marelab-phcgi"
+ 		wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-cgi/ARM/marelab-cgi
+ 		wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-cgi/ARM/marelab-phcgi
  		chmod 775 marelab-cgi
  		chmod 775 marelab-phcgi
  	fi
@@ -168,7 +168,7 @@ echo "downloading marelab from marelab.org git repository ..."
 
 cd $MARELAB_BASE_DIR
 cd marelab-aqua/marelab-scripts
-wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-scripts/init.lua"
+wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-scripts/init.lua
 
 	
 #changing all to user marelab
@@ -181,10 +181,10 @@ echo "configure boa webserver for marelab use ..."
 echo "getting a clean installed boa.conf from marelab git ..."
 cd $MARELAB_BASE_DIR
 cd marelab-aqua/temp-install
-wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-conf/boa.conf"
+wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-conf/boa.conf
 cd $MARELAB_BASE_DIR
 cd marelab-aqua/marelab-web
-wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-web/marelabwebpack.tar.gz"
+wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-web/marelabwebpack.tar.gz
 tar xfz marelabwebpack.tar.gz
 rm marelabwebpack.tar.gz
 
@@ -235,18 +235,18 @@ function _configureMarelabNucleus(){
 
 cd $MARELAB_BASE_DIR
 	cd marelab-aqua/temp-install
-	wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-conf/marelab.conf"
+	wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-conf/marelab.conf
 
 cd $MARELAB_BASE_DIR
 	cd marelab-aqua/marelab-deamon
 	
 	if [ "$MARELAB_OS" == "PC" ]; then
-    	echo "downloading linux pc based version of marelab..."
-    	wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-deamon/X86-32/marelab-nucleus"
+    	echo downloading linux pc based version of marelab..."
+    	wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-deamon/X86-32/marelab-nucleus
  	fi	
  	if [ "$MARELAB_OS" == "ARM" ]; then
-    	echo "downloading linux ARM based version of marelab..."
-    	wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-deamon/ARM/marelab-nucleus"
+    	echo downloading linux ARM based version of marelab...
+    	wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-deamon/ARM/marelab-nucleus
  	fi
 
 	chmod 770 $MARELAB_BASE_DIR/marelab-aqua/marelab-deamon/marelab-nucleus
@@ -262,7 +262,7 @@ cd $MARELAB_BASE_DIR
     mv marelab-aqua/temp-install/marelabtemp.conf marelab-aqua/marelab-conf/marelab.conf
     echo " -> make it start with the OS ...";
 cd $MARELAB_BASE_DIR/marelab-aqua/temp-install    
-    wget –q "$MARELAB_REPO/marelab-aqua-pi/marelab-conf/nucleus"
+    wget –q $MARELAB_REPO/marelab-aqua-pi/marelab-conf/nucleus
     sed -e 's|START_NUCLEUS_PATH|'"$MARELAB_BASE_DIR/marelab-aqua/marelab-deamon/marelab-nucleus -config $MARELAB_BASE_DIR/marelab-aqua/marelab-conf/marelab.conf"'|' < nucleus > tempnucleus
     sudo mv tempnucleus /etc/init.d/nucleus
     chmod 775 /etc/init.d/nucleus

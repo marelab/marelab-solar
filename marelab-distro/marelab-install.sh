@@ -6,36 +6,39 @@ WWW_PORT=80
 
 
 VERSION="1.0"
-DEFAULT_USER="marelab"
-DEFAULT_PASSWORD="password"
+DEFAULT_USER="tomtom"					#only use should be with the deamon
+DEFAULT_PASSWORD="password"				#no function yet
+#Was old repos becaus of bug with wget usage switched to github
+#MARELAB_REPO="https://marelab-solar.googlecode.com/git/marelab-distro"
 MARELAB_REPO="https://github.com/marelab/marelab-solar/raw/master/marelab-distro"
-//MARELAB_REPO="https://marelab-solar.googlecode.com/git/marelab-distro"
-PI_REPO="/marelab-aqua-pi"
-MARELAB_BASE_DIR=""
-MARELAB_OS=""
+PI_REPO="/marelab-aqua-pi"				#switch between differnt OS repos
+MARELAB_BASE_DIR=""						#its the dir the script is started from
+MARELAB_OS=""							#automatic set to PC or ARM for getting the right distribution
+
 
 function _getinstalldir(){
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  TARGET="$(readlink "$SOURCE")"
-  if [[ $SOURCE == /* ]]; then
- #   echo "SOURCE '$SOURCE' is an absolute symlink to '$TARGET'"
-    SOURCE="$TARGET"
-  else
-    DIR="$( dirname "$SOURCE" )"
-  #  echo "SOURCE '$SOURCE' is a relative symlink to '$TARGET' (relative to '$DIR')"
-    SOURCE="$DIR/$TARGET" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-  fi
-done
-#echo "SOURCE is '$SOURCE'"
-RDIR="$( dirname "$SOURCE" )"
-DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-#if [ "$DIR" != "$RDIR" ]; then
- # echo "DIR '$RDIR' resolves to '$DIR'"
-#fi
-#echo "DIR is '$DIR'"
-MARELAB_BASE_DIR=$DIR
+	SOURCE="${BASH_SOURCE[0]}"
+	while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	  TARGET="$(readlink "$SOURCE")"
+	  if [[ $SOURCE == /* ]]; then
+ 		#echo "SOURCE '$SOURCE' is an absolute symlink to '$TARGET'"
+	    SOURCE="$TARGET"
+	  else
+	    DIR="$( dirname "$SOURCE" )"
+	  	#echo "SOURCE '$SOURCE' is a relative symlink to '$TARGET' (relative to '$DIR')"
+	    SOURCE="$DIR/$TARGET" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+	  fi
+	done
+	#echo "SOURCE is '$SOURCE'"
+	RDIR="$( dirname "$SOURCE" )"
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+	#if [ "$DIR" != "$RDIR" ]; then
+ 	# echo "DIR '$RDIR' resolves to '$DIR'"
+	#fi
+	#echo "DIR is '$DIR'"
+	MARELAB_BASE_DIR=$DIR
 }
+
 
 function _checkingPacket(){
 	problem=$(dpkg -s $1|grep installed)
@@ -57,7 +60,6 @@ function _fail ( ){
         _cleanup                                  
         exit 1                      
 }  
-
 
 function _makedir(){
  	echo "create $1 dir ..."
@@ -120,15 +122,6 @@ if [ -d "$TEST_DIR" ]; then
 fi
 }
 
-
-function _testfile(){
-#Does file exist?
-    PERL_SOURCE_ZIP_FILE=%1
-    if [ ! -f "$PERL_SOURCE_ZIP_FILE" ]; then
-        wget http://www.cpan.org/src/5.0/$PERL_SOURCE_ZIP_FILE
-    fi
-}
-
 function _isvarempty(){
 #Is variable empty?
 X=abc
@@ -147,15 +140,6 @@ function _found_arch() {
 
 function _pre_install(){
  echo "######## marelab Pre installation ################################"
- 
- _getinstalldir  	# get the dir the script is in thats the base for all installation & removing 
- 
- # check if sudo / root called it
- if [ `/usr/bin/id -u` != "0" ]; then
-        echo " "
-        _fail "ERROR: Sorry you must be root to run this script exp: ( sudo marelab-install.sh ) \n"
-        exit
- fi
  cd $MARELAB_BASE_DIR
  _makedir "marelab-aqua"
   cd marelab-aqua
@@ -188,7 +172,7 @@ wget "$MARELAB_REPO/marelab-aqua-pi/marelab-scripts/init.lua"
 	
 #changing all to user marelab
 cd ..
-chown -R marelab:marelab *
+#chown -R marelab:marelab *
 	
 #CONFIGURE BOA FOR MARELAB
 /etc/init.d/boa stop
@@ -200,7 +184,7 @@ wget "$MARELAB_REPO/marelab-aqua-pi/marelab-conf/boa.conf"
 cd $MARELAB_BASE_DIR
 cd marelab-aqua/marelab-web
 wget "$MARELAB_REPO/marelab-aqua-pi/marelab-web/marelabwebpack.tar.gz"
-tar xvfz marelabwebpack.tar.gz
+tar xfz marelabwebpack.tar.gz
 rm marelabwebpack.tar.gz
 
 cd ..
@@ -217,9 +201,9 @@ sed -e 's:^ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/:ScriptAlias /cgi/ '"$MARELAB_
     -e 's:^AccessLog /var/log/boa/access_log:AccessLog '"$MARELAB_BASE_DIR"'/marelab-aqua/marelab-logs/boa_access.log:' \
     -e 's:^Port 80:Port '"$WWW_PORT"':' < marelab-aqua/temp-install/boa.conf > marelab-aqua/temp-install/boachanged.conf
 mv marelab-aqua/temp-install/boachanged.conf marelab-aqua/temp-install/boa.conf
-cp marelab-aqua/temp-install/boa.conf /etc/boa/boa.conf
+sudo cp marelab-aqua/temp-install/boa.conf /etc/boa/boa.conf
 
-chown -R $DEFAULT_USER:$DEFAULT_USER *
+#chown -R $DEFAULT_USER:$DEFAULT_USER *
 #VerboseCGILogs    
 /etc/init.d/boa start
 #!!!changing rights of logs to see
@@ -289,26 +273,41 @@ echo "are doing here. If you agree the install process continues!"
 echo " "
 
 #CREATE MARELAB USER
-echo "creating user:  "
-
 ret=false
-getent passwd $DEFAULT_USER >/dev/null 2>&1 && ret=true
+#getent passwd $DEFAULT_USER >/dev/null 2>&1 && ret=true
 
-if $ret; then
-    echo "ERROR user: $DEFAULT_USER exists already exit install process!"
-    echo "please choose another user or delete the user name if it is a"
-    echo "old marelab installation" 
-    _cleanup()
-else
-    echo "No, the user does not exist"
-	useradd $DEFAULT_USER -g marelab
-fi
+# check if sudo / root called it
+#if [ `/usr/bin/id -u` != "0" ]; then
+#	echo " "
+#    fail "ERROR: Sorry you must be root to run this script exp: ( sudo marelab-install.sh ) \n"
+#    exit
+#fi
 
+#if $ret; then
+#    echo "ERROR user: $DEFAULT_USER exists already exit install process!"
+#    echo "please choose another user or delete the user name if it is a"
+#    echo "old marelab installation" 
+#    _cleanup
+#    exit
+#else
+#    echo " No, the user does not exist"
+#    echo " creating user: $DEFAULT_USER "
+#    groupadd $DEFAULT_USER
+#	useradd $DEFAULT_USER -g $DEFAULT_USER
+#fi
+_getinstalldir  						# get the dir the script is in thats the base for all installation & removing 
+_pre_install
 _configureI2Cbus
 _configureMarelabNucleus
 # SAFETY MAKE AGAIN ALL FILES TO USER
-cd $MARELAB_BASE_DIR/marelab-aqua
-chown -R $DEFAULT_USER:$DEFAULT_USER *
+#echo "$USER"
+echo "clean up"
+cd $MARELAB_BASE_DIR/marelab-aqua/temp-install
+rm *
+cd ..
+rmdir temp-install
+cd ..
+#chown $DEFAULT_USER:$DEFAULT_USER * -R 
 echo "marelab configured successfull ..."
 echo "just type 'http://localhost:$WWW_PORT/' in your browser...."
 echo "have fun bye bye ..."

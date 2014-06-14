@@ -212,6 +212,11 @@ public:
 	}
 	;
 
+	void setConfigFile(string filename) {
+			CONFIGFILE = filename;
+	}
+	;
+
 	//Config getConfigObj(string name){
 	//	return 	(Config) NULL;
 	//};

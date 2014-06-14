@@ -260,6 +260,14 @@ cd $MARELAB_BASE_DIR
 		-e 's|\"RUN_AS_USER\" : \"marelab\",|\"RUN_AS_USER\" : \"'"$DEFAULT_USER"'\",|' < marelab-aqua/temp-install/marelab.conf > marelab-aqua/temp-install/marelabtemp.conf
     mv marelab-aqua/temp-install/marelabtemp.conf marelab-aqua/marelab-conf/marelab.conf
     echo " -> make it start with the OS ...";
+cd $MARELAB_BASE_DIR/marelab-aqua/temp-install    
+    wget "$MARELAB_REPO/marelab-aqua-pi/marelab-conf/marelab.sh"
+    sed -e 's|START_NUCLEUS_PATH|'"$MARELAB_BASE_DIR/marelab-aqua/marelab-deamon/marelab-nucleus"'|' < nucleus.sh > tempnucleus.sh
+    sudo mv tempnucleus.sh /etc/init.d/nucleus.sh
+    chmod 775 /etc/init.d/nucleus.sh
+    sudo update-rc.d /etc/init.d/nucleus defaults
+ cd $MARELAB_BASE_DIR
+ 
 } 
 
 

@@ -14,7 +14,7 @@ MARELAB_REPO="https://github.com/marelab/marelab-solar/raw/master/marelab-distro
 PI_REPO="/marelab-aqua-pi"				#switch between differnt OS repos
 MARELAB_BASE_DIR=""						#its the dir the script is started from
 MARELAB_OS=""							#automatic set to PC or ARM for getting the right distribution
-
+INSTALL_USER=$USER						#the user that starts the script is used as webserver user
 
 function _getinstalldir(){
 	SOURCE="${BASH_SOURCE[0]}"
@@ -195,8 +195,8 @@ sed -e 's:^ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/:ScriptAlias /cgi/ '"$MARELAB_
     -e 's:^DocumentRoot /var/www:DocumentRoot '"$MARELAB_BASE_DIR"'/marelab-aqua/marelab-web:' \
     -e 's:^#VerboseCGILogs:VerboseCGILogs :' \
     -e 's:^#UseLocaltime:UseLocaltime:' \
-    -e 's:^User www-data:User marelab:' \
-    -e 's:^Group www-data:Group marelab:' \
+    -e 's:^User www-data:User '"$INSTALL_USER"':' \
+    -e 's:^Group www-data:Group '"$INSTALL_USER"':' \
     -e 's:^ErrorLog /var/log/boa/error_log:ErrorLog '"$MARELAB_BASE_DIR"'/marelab-aqua/marelab-logs/boa_error.log:' \
     -e 's:^AccessLog /var/log/boa/access_log:AccessLog '"$MARELAB_BASE_DIR"'/marelab-aqua/marelab-logs/boa_access.log:' \
     -e 's:^Port 80:Port '"$WWW_PORT"':' < marelab-aqua/temp-install/boa.conf > marelab-aqua/temp-install/boachanged.conf
@@ -309,6 +309,7 @@ rmdir temp-install
 cd ..
 #chown $DEFAULT_USER:$DEFAULT_USER * -R 
 echo "marelab configured successfull ..."
+echo "boa webserver runs under $INSTALL_USER"
 echo "just type 'http://localhost:$WWW_PORT/' in your browser...."
 echo "have fun bye bye ..."
 echo " "

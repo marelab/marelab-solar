@@ -81,6 +81,8 @@ function _downloadMarelab(){
  	if [ "$foundos" == "armv6l" ]; then
    	 	MARELAB_OS="ARM"
  	fi
+ 	
+ 	echo "OS FOUNDED = $MARELAB_OS"
  	if [ "$MARELAB_OS" == "PC" ]; then
     	echo "downloading linux pc based version of marelab..."
     	cd marelab-plug

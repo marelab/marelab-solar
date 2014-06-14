@@ -219,7 +219,7 @@ sed -e 's:^ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/:ScriptAlias /cgi/ '"$MARELAB_
 mv marelab-aqua/temp-install/boachanged.conf marelab-aqua/temp-install/boa.conf
 cp marelab-aqua/temp-install/boa.conf /etc/boa/boa.conf
 
-chown -R marelab:marelab *
+chown -R $DEFAULT_USER:$DEFAULT_USER *
 #VerboseCGILogs    
 /etc/init.d/boa start
 #!!!changing rights of logs to see
@@ -264,7 +264,7 @@ cd $MARELAB_BASE_DIR
     	wget "$MARELAB_REPO/marelab-aqua-pi/marelab-deamon/ARM/marelab-nucleus"
  	fi
 
-	chmod 777 $MARELAB_BASE_DIR/marelab-aqua/marelab-deamon/marelab-nucleus
+	chmod 770 $MARELAB_BASE_DIR/marelab-aqua/marelab-deamon/marelab-nucleus
 
 cd $MARELAB_BASE_DIR
 	echo " -> update marelab.conf ..."
@@ -290,7 +290,20 @@ echo " "
 
 #CREATE MARELAB USER
 echo "creating user:  "
-_pre_install
+
+ret=false
+getent passwd $DEFAULT_USER >/dev/null 2>&1 && ret=true
+
+if $ret; then
+    echo "ERROR user: $DEFAULT_USER exists already exit install process!"
+    echo "please choose another user or delete the user name if it is a"
+    echo "old marelab installation" 
+    _cleanup()
+else
+    echo "No, the user does not exist"
+	useradd $DEFAULT_USER -g marelab
+fi
+
 _configureI2Cbus
 _configureMarelabNucleus
 # SAFETY MAKE AGAIN ALL FILES TO USER

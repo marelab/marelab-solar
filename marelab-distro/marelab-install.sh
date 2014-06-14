@@ -240,11 +240,11 @@ cd $MARELAB_BASE_DIR
 	cd marelab-aqua/marelab-deamon
 	
 	if [ "$MARELAB_OS" == "PC" ]; then
-    	echo downloading linux pc based version of marelab..."
+    	echo "downloading linux pc based version of marelab..."
     	curl $MARELAB_REPO/marelab-aqua-pi/marelab-deamon/X86-32/marelab-nucleus > marelab-nucleus
  	fi	
  	if [ "$MARELAB_OS" == "ARM" ]; then
-    	echo downloading linux ARM based version of marelab...
+    	echo "downloading linux ARM based version of marelab..."
     	curl $MARELAB_REPO/marelab-aqua-pi/marelab-deamon/ARM/marelab-nucleus > marelab-nucleus
  	fi
 

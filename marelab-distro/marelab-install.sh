@@ -273,9 +273,9 @@ function _configurersyslog(){
 	cd $MARELAB_BASE_DIR/marelab-aqua/temp-install
 	curl $MARELAB_REPO/marelab-aqua-pi/marelab-conf/marelabrsyslog.conf > marelabrsyslog.conf
 	echo " manipulate the downloaded conf ..."
-	sed -e 's|^:programname, isequal, "marelab-ph" MARELAB_PH_LOG_CGI|:programname, isequal, "marelab-ph" '"$MARELAB_BASE_DIR/marelab-aqua/marelab-logs/marelab-ph.log"'|' \
-    	-e 's|^:programname, isequal, "marelab-cgi" MARELAB_CGI|:programname, isequal, "marelab-cgi" '"$MARELAB_BASE_DIR/marelab-aqua/marelab-logs/marelab-cgi.log"'|' \
-    	-e 's|^:programname, isequal, "nucleus" MARELAB_NUCLEUS_LOG|:programname, isequal, "nucleus" '"$MARELAB_BASE_DIR/marelab-aqua/marelab-logs/nucleus.log"'|' < marelabrsyslog.conf > marelabrsyslog.conf.temp
+	sed -e 's|^:programname, isequal, "marelab-ph" MARELAB_PH_LOG_CGI|:programname, isequal, "marelab-ph" -'"$MARELAB_BASE_DIR/marelab-aqua/marelab-logs/marelab-ph.log"'|' \
+    	-e 's|^:programname, isequal, "marelab-cgi" MARELAB_CGI|:programname, isequal, "marelab-cgi" -'"$MARELAB_BASE_DIR/marelab-aqua/marelab-logs/marelab-cgi.log"'|' \
+    	-e 's|^:programname, isequal, "marelab-nucleus" MARELAB_NUCLEUS_LOG|:programname, isequal, "marelab-nucleus" -'"$MARELAB_BASE_DIR/marelab-aqua/marelab-logs/nucleus.log"'|' < marelabrsyslog.conf > marelabrsyslog.conf.temp
 	sudo mv marelabrsyslog.conf.temp /etc/rsyslog.d/marelabrsyslog.conf
 	sudo /etc/init.d/rsyslog start 	
 }
